@@ -9,4 +9,4 @@ reviews:
     include: ["*"]  # 允许所有源分支触发自动审查
   target_branches:
     include: ["*"]  # 允许所有目标分支触发自动审查
-  review_status: false  # 禁用"Review skipped"状态消息（可选）
+  # review_status: false  # 禁用"Review skipped"状态消息（可选）
