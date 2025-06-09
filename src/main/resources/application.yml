@@ -7,7 +7,6 @@ spring:
     host: 127.0.0.1
     #host: 192.168.0.3
     port: 6379
-    # password: 13914823128m
   datasource: # set database config
     url: jdbc:mysql://localhost:3306/security?useUnicode=true&characterEncoding=utf8&useSSL=false
     #url: jdbc:mysql://192.168.0.2:3306/security?useUnicode=true&characterEncoding=utf8&useSSL=false
@@ -33,23 +32,23 @@ jwt:
 # 开发工具上的 遗留 appId wx8c1f2e9ced1c7f03
 #微信 小程序信息
 wechat:
-  appid: wx25bc6aecc97f2351
-  secret: f91cbc5206f742642ffa08a42688eb5d #AppSecret不会明文存储在开发平台上
+  appid: XXXXXXXXXXXXXXXXXXXX
+  secret: XXXXXXXXXXXXXXXXXXXX #AppSecret不会明文存储在开发平台上
 
 # 腾讯云 凭证
 tencent:
   url: ocr.tencentcloudapi.com
-  secretId: AKIDSjjSu50eMq41h6F9m8E3aquhDSQ8ZjcE
-  secretKey: MSGo55nEOI9j36sMZWCbjaATVGkxtYx5
+  secretId: XXXXXXXXXXXXXXXXXXXX
+  secretKey: XXXXXXXXXXXXXXXXXXXX
 
 # gitHub 条码查询免费接口(不能获取商品图片信息)
 
 # 七牛云配置
 qiniu:
-  accessKey: fojZLKlNtA9f7LAf7Qi9fI94CS9aCy0OU1zWBHmm
-  secretKey: Tm7h25xmWiicn9kx9S-Y-IORO9hv8n8kFHNJNj9j
-  bucket: miniprogram-photograph
-  path: chenxx.club
+  accessKey: XXXXXXXXXXXXXXXXXXXX
+  secretKey: XXXXXXXXXXXXXXXXXXXX
+  bucket: XXXXXXXXXXXXXXXXXXXX
+  path: XXXXXXXXXXXXXXXXXXXX.club
 
 # mybatis-plus
 mybatis-plus:
