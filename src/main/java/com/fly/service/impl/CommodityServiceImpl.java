@@ -68,6 +68,14 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Autowired
     private SysRoleService sysRoleService;
 
+    /**
+     * Retrieves a paginated list of commodities, optionally filtered by barcode, and processes each commodity's display information based on user role.
+     *
+     * For each commodity, sets the barcode to an empty string if null, attaches the latest image address if available, and hides the sale price for non-admin users by setting it to zero.
+     *
+     * @param request the pagination and filter criteria for querying commodities
+     * @return a PageInfo object containing the paginated list of processed commodities
+     */
     @Override
     public PageInfo<Commodity> pageQueryCommodity(CommodityPageRequest request) {
         PageHelper.startPage(request.getPage(), request.getSize());
