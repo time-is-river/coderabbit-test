@@ -73,7 +73,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         PageHelper.startPage(request.getPage(), request.getSize());
         PageInfo<Commodity> pageInfo = new PageInfo<>(commodityMapper.queryCommodityList(request.getBarcode()));
         //获取当前用户是否拥有管理员角色
-        //String roleType = sysRoleService.queryUserRoleType();
+        String roleType = sysRoleService.queryUserRoleType();
         pageInfo.getList().forEach(item->{
             //条码为null 设置为空字符串
             if (item.getBarcode() == null) {
@@ -88,10 +88,10 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
                     item.setAttachmentAddress(att.getAttachmentAddress());
                 }
             }
-            /*//如果是普通用户 隐藏价格信息
+            //如果是普通用户 隐藏价格信息
             if (!Constants.RoleType.ADMIN.equals(roleType)) {
-                item.setSalePrice("***");
-            }*/
+                item.setSalePrice(BigDecimal.ZERO);
+            }
         });
         return pageInfo;
     }
