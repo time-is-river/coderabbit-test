@@ -1,7 +1,7 @@
 # .coderabbit.yaml
 project:
   name: coderabbit-test
-  # description: you know for test
+  description: you know for test
   output: ./generated-code
 
 reviews:
