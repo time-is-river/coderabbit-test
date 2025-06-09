@@ -1,17 +1,12 @@
+# .coderabbit.yaml
+project:
+  name: coderabbit-test
+  # description: you know for test
+  output: ./generated-code
+
 reviews:
   branches:
-    # include: ["*"]  # 允许所有分支触发自动审查
-    include: ["main", "feature/*"]  # 或指定特定分支:
-
-    #  scope:
-    #    include: [ "src/**" ]  # 只审查 src 目录
-      #    exclude: [ "src/test/**" ]  # 但排除测试代码
-
-  # 其他 常见排除场景：
-    #  scope:
-      #    exclude:
-      #      - "docs/**"          # 文档目录
-      #      - "test/**"          # 测试代码
-      #      - "static/**"        # 静态资源
-      #      - "**/*.md"          # Markdown 文件
-      #      - "scripts/deploy.sh" # 部署脚本
+    include: ["*"]  # 允许所有源分支触发自动审查
+  target_branches:
+    include: ["*"]  # 允许所有目标分支触发自动审查
+  review_status: false  # 禁用"Review skipped"状态消息（可选）
