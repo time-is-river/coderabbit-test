@@ -1,7 +1,7 @@
 reviews:
   branches:
-    include: ["*"]  # 允许所有分支触发自动审查
-    # 或指定特定分支: ["main", "feature/*"]
+    # include: ["*"]  # 允许所有分支触发自动审查
+    include: ["main", "feature/*"]  # 或指定特定分支:
 
     #  scope:
     #    include: [ "src/**" ]  # 只审查 src 目录
