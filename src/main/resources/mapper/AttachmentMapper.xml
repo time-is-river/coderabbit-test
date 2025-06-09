@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.mapper.AttachmentMapper">
+    <!-- 分页查询商品信息列表 -->
+    <select id="queryOneByCommodityId" resultType="com.fly.entity.Attachment">
+        SELECT
+        *
+        FROM
+        attachment
+        WHERE
+        commodity_id = #{commodityId}
+        order by create_time desc limit 1
+    </select>
+    <select id="queryAllByCommodityId" resultType="com.fly.entity.Attachment">
+        SELECT
+            *
+        FROM
+            attachment
+        WHERE
+            commodity_id = #{commodityId}
+        and status = '0'
+        order by create_time desc
+    </select>
+    <select id="queryAddressByCommodityId" resultType="com.fly.entity.Attachment">
+        SELECT
+            commodity_id as commodityId,
+            attachment_address as attachmentAddress
+        FROM
+            attachment
+        WHERE
+            commodity_id = #{commodityId}
+          and status = '0'
+        order by create_time desc
+    </select>
+    <update id="deleteAttachmentByAddress" parameterType="com.fly.entity.Attachment">
+        update
+            attachment
+        set status='1'
+        where commodity_id = #{commodityId} and attachment_address = #{attachmentAddress}
+    </update>
+</mapper>

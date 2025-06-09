@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fly.mapper.CommodityMapper">
+    <!-- 分页查询商品信息列表 -->
+    <select id="queryCommodityList" resultType="com.fly.entity.Commodity">
+        SELECT
+            c.*,
+            ct.name as commodityTypeName
+        FROM
+            commodity c left join commodity_type ct on c.commodity_type = ct.id
+        WHERE
+            c.status = '0'
+            <if test="barcode != null and barcode != ''">
+               and c.barcode like concat('%',#{barcode},'%') or name like concat('%',#{barcode},'%')
+            </if>
+    </select>
+</mapper>

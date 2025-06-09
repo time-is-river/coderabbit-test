@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="basePath" value="/opt/apps/fly-manage-api/logs"/>
+    <appender name="rollingErrorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${basePath}/flyManageApiError.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${basePath}/${HOSTNAME}.flyManageApiError.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>15</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${basePath}/flyManageApi.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${basePath}/${HOSTNAME}.flyManageApi.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>15</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印INFO日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="rollingCommonFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${basePath}/flyManageApiCommon.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${basePath}/${HOSTNAME}.flyManageApiCommon.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>100MB</maxFileSize>
+            <maxHistory>2</maxHistory><!-- 日志保留2天 -->
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印DEBUG日志 -->
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%clr(%5p)] [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- dev 尽量不要在生产环境 设置日志级别为 debug  -->
+    <logger name="com.zaxxer.hikari"> <!-- SpringBoot 2.0 开始 此类为默认的数据库连接池 默认日志级别为debug 会打印大量无效日志 因此修改此类相关的日志级别为 warn-->
+        <level value="WARN"/>
+    </logger>
+    <root level="DEBUG">
+        <appender-ref ref="console"/>
+        <appender-ref ref="rollingCommonFile"/>
+        <appender-ref ref="rollingErrorFile"/>
+        <appender-ref ref="rollingFile"/>
+    </root>
+
+    <!-- prd 尽量不要在生产环境 设置日志级别为 debug
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="rollingCommonFile"/>
+        <appender-ref ref="rollingErrorFile"/>
+        <appender-ref ref="rollingFile"/>
+    </root>  -->
+</configuration>

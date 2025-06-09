@@ -1,0 +1,78 @@
+spring:
+  #  security:
+  #    user:
+  #     name: admin
+  #   password: admin
+  redis:
+    host: 127.0.0.1
+    #host: 192.168.0.3
+    port: 6379
+    # password: 13914823128m
+  datasource: # set database config
+    url: jdbc:mysql://localhost:3306/security?useUnicode=true&characterEncoding=utf8&useSSL=false
+    #url: jdbc:mysql://192.168.0.2:3306/security?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 13914823128m
+    driver-class-name: com.mysql.cj.jdbc.Driver
+ # session 过期时间
+    #  session:
+    #  timeout: 2m
+
+# JWT配置
+jwt:
+  # 密匙Key
+  secret: JWTSecret,C3Stones
+  # HeaderKey
+  tokenHeader: Authorization
+  # Token前缀
+  tokenPrefix: Bearer
+  # 过期时间，单位秒（43200秒=12小时）
+  expiration: 43200
+  # 配置白名单（不需要认证）
+  # antMatchers: /login/**,/register/**,/static/**
+# 开发工具上的 遗留 appId wx8c1f2e9ced1c7f03
+#微信 小程序信息
+wechat:
+  appid: wx25bc6aecc97f2351
+  secret: f91cbc5206f742642ffa08a42688eb5d #AppSecret不会明文存储在开发平台上
+
+# 腾讯云 凭证
+tencent:
+  url: ocr.tencentcloudapi.com
+  secretId: AKIDSjjSu50eMq41h6F9m8E3aquhDSQ8ZjcE
+  secretKey: MSGo55nEOI9j36sMZWCbjaATVGkxtYx5
+
+# gitHub 条码查询免费接口(不能获取商品图片信息)
+
+# 七牛云配置
+qiniu:
+  accessKey: fojZLKlNtA9f7LAf7Qi9fI94CS9aCy0OU1zWBHmm
+  secretKey: Tm7h25xmWiicn9kx9S-Y-IORO9hv8n8kFHNJNj9j
+  bucket: miniprogram-photograph
+  path: chenxx.club
+
+# mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml #xml的路径
+  # classpath:mapper/*.xml
+  # classpatch:/com/fly/mapper/xml/*.xml #xml的路径  xml 文件不放在resource目录下 配置没有生效 暂时没有找到解决办法
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl #增加打印sql语句，将日志写入到制定的日志文件当中 # sql日志一直无法输出到指定文件，修改次配置后，sql日志输出成功
+    # org.apache.ibatis.logging.stdout.StdOutImpl  #增加打印sql语句，一般用于本地开发测试
+
+#服务端口
+server:
+  port: 8088
+  tomcat:
+    basedir: /mini/pic/temp
+  # servlet:  通过servlet 配置session过期时间
+    # session:
+    #  timeout: 1m
+
+# pagehelper 插件
+pagehelper:
+  # 合理化 若配置成true，小与零则会查询第一页，大于实际数据页数则会返回最后一页（坑）
+  reasonable: false
+  row-bounds-with-count: true
+  helper-dialect: mysql
+  page-size-zero: true
