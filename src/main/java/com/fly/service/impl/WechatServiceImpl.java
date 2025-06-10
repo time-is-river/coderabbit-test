@@ -40,6 +40,16 @@ public class WechatServiceImpl implements WechatService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Binds a platform user account to a WeChat account using the provided login request.
+     *
+     * The method verifies the user's credentials, exchanges the WeChat code for an openId and sessionKey,
+     * and associates the user's account with the WeChat openId. If the openId is already bound to another user,
+     * it unbinds the previous association before binding the current user. On success, returns a JWT token for authentication.
+     *
+     * @param request the login request containing username, password, WeChat code, and nickname
+     * @return a response containing the result code, message, and JWT token if successful; otherwise, an error response
+     */
     @Override
     public ResponseUtils binding(WechatLoginRequest request) {
         SysUserDetail userDetail;
@@ -100,6 +110,14 @@ public class WechatServiceImpl implements WechatService {
         }
     }
 
+    /****
+     * Authenticates a user via WeChat by exchanging a WeChat code for an openId and logging in the corresponding platform user.
+     *
+     * If the openId is bound to a platform user, generates and returns a JWT access token. If the openId is not bound, returns a response indicating the need to bind an account. Returns an error response if the WeChat API request fails or openId is missing.
+     *
+     * @param code the WeChat login code provided by the client
+     * @return a response containing the login result and, if successful, a JWT access token
+     */
     @Override
     public ResponseUtils login(String code) {
         Code2SessionResponse code2SessionResponse = wechatApi.code2Session(code);
