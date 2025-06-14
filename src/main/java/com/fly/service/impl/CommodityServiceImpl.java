@@ -76,9 +76,7 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
         String roleType = sysRoleService.queryUserRoleType();
         pageInfo.getList().forEach(item->{
             //条码为null 设置为空字符串
-            if (item.getBarcode() == null) {
-                item.setBarcode("");
-            }
+            item.setBarcode(item.getBarcode() == null?"":item.getBarcode());
             //获取商品附件信息
             List<Attachment> attachments = attachmentMapper.queryAllByCommodityId(item.getId());
             if (attachments.size() != 0) {

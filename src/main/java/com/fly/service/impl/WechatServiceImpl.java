@@ -95,14 +95,17 @@ public class WechatServiceImpl implements WechatService {
             return ResponseUtils.response(302, "用户名不存在", null);
         } catch (Exception e) {
             return ResponseUtils.response(302, e.getMessage(), null);
+        } finally {
+            log.info("用户:{} 登录失败。", request.getUsername());
         }
     }
 
     @Override
     public ResponseUtils login(String code) {
         Code2SessionResponse code2SessionResponse = wechatApi.code2Session(code);
-        if (code2SessionResponse != null && code2SessionResponse.getOpenId() != null) {
-            String openId = code2SessionResponse.getOpenId();
+        String openId = code2SessionResponse.getOpenId();
+        if (StringUtils.isNotEmpty(openId)) {
+            // String openId = code2SessionResponse.getOpenId();
             // 根据openId 获取绑定的用户信息
             SysUser user = sysUserService.selectUserByOpenId(openId);
             if (user == null) {
@@ -119,7 +122,7 @@ public class WechatServiceImpl implements WechatService {
                 return ResponseUtils.response(ResultCode.SUCCESS.getCode(), "登录成功了", token);
             }
         }
-        log.info("请求微信接口异常");
+        log.info("请求微信接口异常 code:{}", code);
         return ResponseUtils.response(ResultCode.REQUEST_WECHAT_API_ERROR.getCode(), "请求微信接口异常", null);
     }
 }
